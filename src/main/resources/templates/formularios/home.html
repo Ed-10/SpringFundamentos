@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--
+ Para poder traer nuestros estilos de frontend.html vamos a cargalos con la siguiente anotacion:
+    <head th:replace="layout/frontend :: head(~{::title}, ~{::links})">
+ Esto con el fin de poder cargar nuestros estilos
+ -->
+<head th:replace="layout/frontend :: head(~{::title}, ~{::link})">
+  <link th:href="@{/css/estilos.css}" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Formularios</title>
+
+</head>
+<body>
+
+<div class="container">
+  <header th:replace="layout/frontend :: cabecera"></header>
+  <div th:replace="layout/frontend :: menu"></div>
+</div>
+<main class="container">
+  <h1>Formularios</h1>
+  <ul>
+    <li>
+      <a th:href="@{formularios/simple}">Formulario Simple</a>
+    </li>
+    <li>
+      <a th:href="@{formularios/objeto}">Formulario Objeto</a>
+    </li>
+    <li>
+      <a th:href="@{formularios/objeto2}">Formulario Objeto 2</a>
+    </li>
+    <li>
+      <a th:href="@{formularios/validaciones}">Formulario Validaciones</a>
+    </li>
+  </ul>
+  <!-- <img th:src="@{/images/logo.png}"> -->
+</main>
+
+<footer th:replace="layout/frontend :: footer"></footer>
+<!--En la parte de abajo estamos trayendo una estructura de codigo y de esta forma reciclamos componentes -->
+<div th:replace="layout/frontend :: scripts"></div>
+</body>
+</html>

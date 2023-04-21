@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--
+ Para poder traer nuestros estilos de frontend.html vamos a cargalos con la siguiente anotacion:
+    <head th:replace="layout/frontend :: head(~{::title}, ~{::links})">
+ Esto con el fin de poder cargar nuestros estilos
+ -->
+<head th:replace="layout/frontend :: head(~{::title}, ~{::link})">
+  <link th:href="@{/css/estilos.css}" rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/fancybox/jquery.fancybox.css}">
+  <meta charset="UTF-8">
+  <title>Estaticos</title>
+
+</head>
+<body>
+
+<div class="container">
+  <header th:replace="layout/frontend :: cabecera"></header>
+  <div th:replace="layout/frontend :: menu"></div>
+</div>
+<main class="container">
+  <h1>Fancybox</h1>
+  <a th:href="@{/images/insecto.png}" class="fancybox">
+    <img th:src="@{/images/insecto.png}" width="200" height="200">
+  </a>
+  <a th:href="@{/images/amorcito.jpg}" class="fancybox">
+    <img th:src="@{/images/amorcito.jpg}" width="200" height="200">
+  </a>
+  <a th:href="@{/images/cafe.png}" class="fancybox">
+    <img th:src="@{/images/cafe.png}" width="200" height="200">
+  </a>
+  <a th:href="@{/images/pc.png}" class="fancybox">
+    <img th:src="@{/images/pc.png}" width="200" height="200">
+  </a>
+
+</main>
+
+<footer th:replace="layout/frontend :: footer"></footer>
+<!--En la parte de abajo estamos trayendo una estructura de codigo y de esta forma reciclamos componentes -->
+<div th:replace="layout/frontend :: scripts"></div>
+<script type="text/javascript" th:src="@{/fancybox/jquery.fancybox.js}"></script>
+<script type="text/javascript">
+  $(document).ready(function (){
+    $(".fancybox").fancybox({
+      openEffect : 'none',
+      closeEffect : 'none',
+    });
+  });
+</script>
+</body>
+</html>

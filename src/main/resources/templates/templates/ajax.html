@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--
+ Para poder traer nuestros estilos de frontend.html vamos a cargalos con la siguiente anotacion:
+    <head th:replace="layout/frontend :: head(~{::title}, ~{::links})">
+ Esto con el fin de poder cargar nuestros estilos
+ -->
+<head th:replace="layout/frontend :: head(~{::title}, ~{::link})">
+    <link th:href="@{/css/estilos.css}" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>Estaticos</title>
+
+</head>
+<body>
+
+    <div class="container">
+        <header th:replace="layout/frontend :: cabecera"></header>
+        <div th:replace="layout/frontend :: menu"></div>
+    </div>
+    <main class="container">
+        <h1>AJAX</h1>
+        <!-- Lo que haces AJAX es hacer una peticion aincorna a una ruta en especifico en la parte para
+         poder generar una ruta, es decir:
+            ('','Hola desde AJAX','ajax');"
+         La ruta iria donde can las comillas simples que estan vacias-->
+        <a href="javascript:void(0);" onclick="carga_ajax_get('/templates/peticion','Hola','ajax');">Haz click</a>
+        <div id="ajax"></div>
+        <!-- <img th:src="@{/images/logo.png}"> -->
+     </main>
+
+ <footer th:replace="layout/frontend :: footer"></footer>
+ <!--En la parte de abajo estamos trayendo una estructura de codigo y de esta forma reciclamos componentes -->
+    <div th:replace="layout/frontend :: scripts"></div>
+    <script type="text/javascript">
+        function carga_ajax_get(ruta, valor, div) {
+            $.get(ruta, { valor: valor }, function(resp) {
+                $("#" + div + "").html(resp);
+            });
+            return false;
+
+        }
+    </script>
+</body>
+</html>
