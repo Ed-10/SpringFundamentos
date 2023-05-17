@@ -23,7 +23,7 @@ public class EmailController {
     @GetMapping("/send")
     public String send(Model model, RedirectAttributes flash) throws MessagingException {
         model.addAttribute("datos", new MailModel());
-        this.emailService.sendMail("eduardomartinez67@aragon.unam.mx","Prueba","Hola a todos, soy un mensaje");
+        this.emailService.sendMail("correo_desti","asunto","mensaje");
 
 
         flash.addFlashAttribute("clase", "success");
