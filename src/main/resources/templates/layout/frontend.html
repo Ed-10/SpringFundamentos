@@ -35,7 +35,8 @@
 <body>
 
 <div class="container">
-    <header class="blog-header py-3" th:fragment="cabecera" >
+    <header class="blog-header py-3" th:fragment="cabecera">
+        <link th:href="@{/styles/front.css}" rel="stylesheet">
         <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="col-4 pt-1">
                 <a class="link-secondary" href="#">Suscribete</a>
@@ -55,12 +56,14 @@
     </header>
 
     <div th:fragment="menu" class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex justify-content-between">
+        <nav class="nav d-flex justify-content-between" id="fondo">
             <a class="p-2 link-secondary" th:href="@{/templates/fancybox}">Fancybox</a>
             <a class="p-2 link-secondary" th:href="@{/templates/estaticos}">Estaticos</a>
             <a class="p-2 link-secondary" th:href="@{/templates/estaticos2}">Estaticos2</a>
             <a class="p-2 link-secondary" th:href="@{/templates/ajax}">Ajax</a>
             <a class="p-2 link-secondary" th:href="@{/formularios}">Formularios</a>
+            <a class="p-2 link-secondary" th:href="@{/email}">E-mail</a>
+            <!--<a class="p-2 link-secondary" th:href="@{/ejemplo-service}">Ejemplo-service</a>-->
         </nav>
     </div>
 </div>

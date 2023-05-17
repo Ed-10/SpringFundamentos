@@ -19,23 +19,35 @@
 </div>
 <main class="container">
   <h1>Formularios</h1>
-  <ul>
-    <li>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-action list-group-item-light" >
       <a th:href="@{formularios/simple}">Formulario Simple</a>
     </li>
-    <li>
+    <li class="list-group-item list-group-item-action list-group-item-light">
       <a th:href="@{formularios/objeto}">Formulario Objeto</a>
     </li>
-    <li>
+    <li class="list-group-item list-group-item-action list-group-item-light">
       <a th:href="@{formularios/objeto2}">Formulario Objeto 2</a>
     </li>
-    <li>
+    <li class="list-group-item list-group-item-action list-group-item-light">
       <a th:href="@{formularios/validaciones}">Formulario Validaciones</a>
+    </li>
+    <li class="list-group-item list-group-item-action list-group-item-light">
+      <a th:href="@{formularios/select_dinamico}">Formulario Select Dinamico</a>
+    </li>
+    <li class="list-group-item list-group-item-action list-group-item-light">
+      <a th:href="@{formularios/checkbox}">Formulario Checkbox</a>
+    </li>
+    <li class="list-group-item list-group-item-action list-group-item-light">
+      <a th:href="@{formularios/flash}">Formulario mensajes flash</a>
+    </li>
+    <li class="list-group-item list-group-item-action list-group-item-light">
+      <a th:href="@{formularios/upload}">Formulario Carga de imagenes UPLOAD</a>
     </li>
   </ul>
   <!-- <img th:src="@{/images/logo.png}"> -->
 </main>
-
+<br>
 <footer th:replace="layout/frontend :: footer"></footer>
 <!--En la parte de abajo estamos trayendo una estructura de codigo y de esta forma reciclamos componentes -->
 <div th:replace="layout/frontend :: scripts"></div>

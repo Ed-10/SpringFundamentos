@@ -3,6 +3,7 @@
 .blog-header {
   line-height: 1;
   border-bottom: 1px solid #e5e5e5;
+  background-color: #dcdcdc;
 }
 
 .blog-header-logo {
@@ -32,6 +33,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 2;
   height: 2.75rem;
   overflow-y: hidden;
+
 }
 
 .nav-scroller .nav {
@@ -43,28 +45,25 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
+  background-color: #cadffb;
 }
-
 .nav-scroller .nav-link {
   padding-top: .75rem;
   padding-bottom: .75rem;
   font-size: .875rem;
-}
 
+}
 .card-img-right {
   height: 100%;
   border-radius: 0 3px 3px 0;
 }
-
 .flex-auto {
   flex: 0 0 auto;
 }
-
 .h-250 { height: 250px; }
 @media (min-width: 768px) {
   .h-md-250 { height: 250px; }
 }
-
 /* Pagination */
 .blog-pagination {
   margin-bottom: 4rem;
