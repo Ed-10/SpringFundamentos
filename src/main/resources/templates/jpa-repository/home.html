@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--
+ Para poder traer nuestros estilos de frontend.html vamos a cargalos con la siguiente anotacion:
+    <head th:replace="layout/frontend :: head(~{::title}, ~{::links})">
+ Esto con el fin de poder cargar nuestros estilos
+ -->
+<head th:replace="layout/frontend :: head(~{::title}, ~{::link})">
+  <link th:href="@{/css/estilos.css}" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Formularios</title>
+
+</head>
+<body>
+<div class="container">
+  <header th:replace="layout/frontend :: cabecera"></header>
+  <div th:replace="layout/frontend :: menu"></div>
+</div>
+<main class="container">
+  <h1>JPA-Respository MySQL</h1>
+  <ul>
+    <li>
+      <a th:href="@{/jpa-repository/categorias}">Categorias</a>
+    </li>
+  </ul>
+
+</main>
+<br>
+<footer th:replace="layout/frontend :: footer"></footer>
+<!--En la parte de abajo estamos trayendo una estructura de codigo y de esta forma reciclamos componentes -->
+<div th:replace="layout/frontend :: scripts"></div>
+</body>
+</html>

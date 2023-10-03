@@ -55,7 +55,7 @@
         </div>
     </header>
 
-    <div th:fragment="menu" class="nav-scroller py-1 mb-2">
+    <div th:fragment="menu" class="nav-scroller">
         <nav class="nav d-flex justify-content-between" id="fondo">
             <a class="p-2 link-secondary" th:href="@{/templates/fancybox}">Fancybox</a>
             <a class="p-2 link-secondary" th:href="@{/templates/estaticos}">Estaticos</a>
@@ -63,6 +63,8 @@
             <a class="p-2 link-secondary" th:href="@{/templates/ajax}">Ajax</a>
             <a class="p-2 link-secondary" th:href="@{/formularios}">Formularios</a>
             <a class="p-2 link-secondary" th:href="@{/email}">E-mail</a>
+            <a class="p-2 link-secondary" th:href="@{/qr}">QR</a>
+            <a class="p-2 link-secondary" th:href="@{/jpa-repository}">JPA Repository</a>
             <!--<a class="p-2 link-secondary" th:href="@{/ejemplo-service}">Ejemplo-service</a>-->
         </nav>
     </div>
