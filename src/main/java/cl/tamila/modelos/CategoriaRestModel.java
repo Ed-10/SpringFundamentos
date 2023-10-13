@@ -1,4 +1,5 @@
 package cl.tamila.modelos;
+//Configuracion de las categorias
 
 public class CategoriaRestModel {
     private Integer id;

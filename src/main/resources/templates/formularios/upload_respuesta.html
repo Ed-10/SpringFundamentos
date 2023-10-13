@@ -22,9 +22,12 @@
     <li th:text="'Username: '+${usuario.username}"></li>
     <li th:text="'E-mail: '+${usuario.correo}"></li>
     <li th:text="'Contraseña: '+${usuario.password}"></li>
-    <li>
-      <img th:src="${url_images}'Prueba1/'+${usuario.foto}">
-    </li>
+    <!--
+       <li>
+         <img th:src="${url_images}+'ImagesSpring/'+${usuario.foto}">
+       </li>
+       -->
+    <img th:src="${url_images}+'ImagesSpring/'+${usuario.foto}">
   </ul>
 
   <!-- <img th:src="@{/images/logo.png}"> -->

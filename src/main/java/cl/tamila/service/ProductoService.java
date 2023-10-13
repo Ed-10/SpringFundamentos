@@ -12,9 +12,15 @@ import java.util.List;
 @Service
 @Primary
 public class ProductoService {
+    //Inyeccion de nuestra intefas
     @Autowired
     private IProductoRespositorio repositorio;
-    public List<ProductosModel> lista(){
+    //Creando metodo para obtener las categorias de la tabla CATEGORIAS
+    public List<ProductosModel> listar(){//Metodo listar productos
         return this.repositorio.findAll();//Traemos todos los registros de la tabla Categorias
+    }
+    //creando servicio(METODO) para GUARDAR las categorias en nuestra BD
+    public void guardar(ProductosModel producto){
+        this.repositorio.save(producto);
     }
 }

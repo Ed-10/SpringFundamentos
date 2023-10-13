@@ -149,9 +149,12 @@ public class FormulariosController {
         model.addAttribute("usuario", new UsuarioUploadModel());
         return "formularios/upload";
     }
-
     @PostMapping("/upload")
-    public String upload_post(@Valid UsuarioUploadModel usuario, BindingResult result, Model model, @RequestParam("archivoImage")MultipartFile multiPart, RedirectAttributes flash){
+    public String upload_post(@Valid UsuarioUploadModel usuario,
+                              BindingResult result,
+                              Model model,
+                              @RequestParam("archivoImage")MultipartFile multiPart,
+                              RedirectAttributes flash){
         if(result.hasErrors()){
             Map<String, String> errores = new HashMap<>();
             result.getFieldErrors().forEach(err -> {
@@ -161,13 +164,13 @@ public class FormulariosController {
             model.addAttribute("usuario", usuario);
             return "formularios/upload";
         }
-        if (multiPart.isEmpty()){
+        if (multiPart.isEmpty()){//Si no subieron nada
             flash.addFlashAttribute("clase", "danger");
             flash.addFlashAttribute("mensaje", "La imagen es obligatoria");
             return "redirect:/formularios/upload";
-        }else {
-            String nombreImagen= Utilidades.guardarArchivo(multiPart,this.ruta_images+"Prueba1/");
-            if (nombreImagen=="no"){
+        }if (!multiPart.isEmpty()) {
+            String nombreImagen= Utilidades.guardarArchivo(multiPart,this.ruta_images+"productos/");
+            if (nombreImagen == "no"){
                 flash.addFlashAttribute("clase", "danger");
                 flash.addFlashAttribute("mensaje", "El formato del archivo no es valido");
                 return "redirect:/formularios/upload";
@@ -212,6 +215,7 @@ public class FormulariosController {
         model.addAttribute("intereses",intereses);
 
         model.addAttribute("url_images",this.url_images);
+        //model.addAttribute("ruta_images",this.ruta_images);
     }
 
 }

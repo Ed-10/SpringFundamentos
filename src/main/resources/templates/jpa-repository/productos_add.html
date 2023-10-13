@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--
+ Para poder traer nuestros estilos de frontend.html vamos a cargalos con la siguiente anotacion:
+    <head th:replace="layout/frontend :: head(~{::title}, ~{::links})">
+ Esto con el fin de poder cargar nuestros estilos
+ -->
+<head th:replace="layout/frontend :: head(~{::title}, ~{::link})">
+  <link th:href="@{/css/estilos.css}" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Formulario simple</title>
+</head>
+<body>
+<div class="container">
+  <header th:replace="layout/frontend :: cabecera"></header>
+  <div th:replace="layout/frontend :: menu"></div>
+</div>
+<main class="container">
+  <h2>Agregar un nuevo Producto</h2>
+  <div th:if="${mensaje!=null}" th:class="'alert alert-'+${clase}" th:text="${mensaje}">
+  </div>
+  <form name="form" th:object="${productos}" th:action="@{/jpa-repository/productos/add}" method="POST" enctype="multipart/form-data">
+
+    <div class="form-group">
+      <label>Seleccione Categoria</label>
+      <select th:field="*{categoriaId}" class="form-control">
+        <option th:each="categoria:${listarCategorias}" th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
+      </select>
+      <div class="alert alert-danger" th:if="${errores != null && errores.containsKey('nombre')}"th:text="${errores.nombre}"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Nombre del prodcuto</label>
+      <input type="text" th:field="*{nombre}" name="username" id="username" class="form-control"/>
+      <div class="alert alert-danger" th:if="${errores != null && errores.containsKey('nombre')}"th:text="${errores.nombre}"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Precio</label>
+      <input type="text" th:field="*{precio}" id="precio" class="form-control" onkeypress="return soloNumeros(event)"/>
+      <div class="alert alert-danger" th:if="${errores != null && errores.containsKey('descripcion')}"th:text="${errores.descripcion}"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Descripcion</label>
+      <textarea th:field="*{descripcion}" rows="5" cols="30" class="form-control"></textarea>
+      <div class="alert alert-danger" th:if="${errores != null && errores.containsKey('nombre')}"th:text="${errores.nombre}"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Foto de producto</label>
+      <input type="file" name="archivoImage" id="archivoImage" class="form-control"/>
+    </div>
+
+    <hr>
+    <a href="javascript:void(0);" class="btn btn-info" onclick="document.form.submit()">Enviar</a>
+  </form>
+  <!-- <img th:src="@{/images/logo.png}"> -->
+</main>
+
+<footer th:replace="layout/frontend :: footer"></footer>
+<!--En la parte de abajo estamos trayendo una estructura de codigo y de esta forma reciclamos componentes -->
+<div th:replace="layout/frontend :: scripts"></div>
+</body>
+</html>

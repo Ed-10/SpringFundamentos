@@ -9,26 +9,26 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class Utilidades {
-    public static String guardarArchivo(MultipartFile multipart, String ruta){
+    public static String guardarArchivo(MultipartFile multiPart, String ruta){
         //Con esto obtenemos el Metadata del archivo que se ingresa al servidor
-        if (Utilidades.validaImagen(multipart.getContentType())==false){
-            return "No";
-        }else {
-            long time=System.currentTimeMillis();
-            String nombre=time+Utilidades.getExtencion(multipart.getContentType());
+        if (Utilidades.validarImagen(multiPart.getContentType())==false){//Con multipart.getContentType, obtenemos el mimetype
+            return "no";
+        }else {//Retornando nombre del archivo
+            long time=System.currentTimeMillis();//Obtenemos la hora y fecha
+            String nombreDeImagen=time+Utilidades.getExtencion(multiPart.getContentType());
             try{
-                File imageFile = new File(ruta+nombre);
-                multipart.transferTo(imageFile);
-                return nombre;
+                File imageFile = new File(ruta+nombreDeImagen);
+                multiPart.transferTo(imageFile);
+                return nombreDeImagen;
             }catch (IOException e){
                 return null;
             }
         }
     }
-    //Metodo para validad con que formato de imagenes solo se permiten
-    public static boolean validaImagen(String mime){
-        boolean retorno=false;
-        switch (mime){
+    //Metodo para validar con que formato de imagenes solo se permiten, de tipo mime type
+    public static boolean validarImagen(String mime){
+        boolean retorno;
+        switch (mime){//Verificacion de formatos
             case "image/jpeg":
                 retorno=true;
                 break;
