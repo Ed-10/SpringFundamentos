@@ -9,7 +9,7 @@
     <link th:href="@{/css/estilos.css}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" th:href="@{/fancybox/jquery.fancybox.css}">
     <meta charset="UTF-8">
-    <title>Formularios</title>
+    <title>Productos</title>
 
 </head>
 <body>
@@ -18,7 +18,7 @@
     <div th:replace="layout/frontend :: menu"></div>
 </div>
 <main class="container">
-    <h1>Productos</h1>
+    <h1>Productos whereIn</h1>
     <div th:if="${mensaje!=null}" th:class="'alert alert-'+${clase}" th:text="${mensaje}"></div>
     <p>
         <a th:href="@{/jpa-repository/productos/add}" class="btn btn-success">Crear nuevo producto</a>
