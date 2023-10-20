@@ -5,6 +5,8 @@ import cl.tamila.modelos.ProductosModel;
 import cl.tamila.repositorios.IProductoRespositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,5 +62,10 @@ public class ProductoService {
     public List<ProductosModel> listar_wherein(List<CategoriaModel> categorias)
     {   //Metodo listar productos
         return this.repositorio.findAllByCategoriaIdIn(categorias);//Traemos todos los registros de la tabla Categorias
+    }
+    //Servico  para poder realizar una PAGINACION
+    public Page<ProductosModel> listar_paginacion(Pageable pageable)
+    {   //Metodo para realizar la paginacion
+        return this.repositorio.findAll(pageable);//Traemos todos los registros de la tabla Categorias
     }
 }

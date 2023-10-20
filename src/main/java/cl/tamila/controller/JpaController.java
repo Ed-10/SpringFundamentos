@@ -4,9 +4,13 @@ import cl.tamila.modelos.CategoriaModel;
 import cl.tamila.modelos.ProductosModel;
 import cl.tamila.service.CategoriaService;
 import cl.tamila.service.ProductoService;
+import cl.tamila.utilidades.Constantes;
 import cl.tamila.utilidades.Utilidades;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -172,6 +176,18 @@ public class JpaController
         model.addAttribute("datos",this.productoService.listar_wherein(lista));//Trayendo el listado de la BD
         return "jpa-repository/productos-wherein";
     }
+    //Seccion para la paginacion de nuestro proyecto
+    @GetMapping("/productos_paginacion")
+    public String productos_paginacion(@RequestParam (value = "page",required=false) Integer page,
+                                       Model model)
+    {
+        Pageable pageable= PageRequest.of((page==null)?0:page, Constantes.CANTIDAD_POR_PAGINA, Sort.by("id").descending());
+
+        model.addAttribute("datos",this.productoService.listar_paginacion(pageable));//Trayendo el listado de la BD
+        model.addAttribute("paginacion", "jpa-repository/productos_paginacion");
+        return "jpa-repository/productos_paginacion";
+    }
+    //Proyecyo para mostrar y mapear
     @GetMapping("/productos/add")
     public String productos_add(Model model)
     {

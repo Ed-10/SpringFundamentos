@@ -5,6 +5,8 @@ public class Constantes     {
     public static final String SMTP_MAIL="sandbox.smtp.mailtrap.io";
     public static final String SMTP_PASSWORD="50f49e81b5c32d";
     public static final String SMTP_PORT="2525";
+    //En esta parte vamos a generar una constante de la cantidad de paginas que se desean generar
+    public static final Integer CANTIDAD_POR_PAGINA=4;
 
     /*
     public final String getSMTP () {

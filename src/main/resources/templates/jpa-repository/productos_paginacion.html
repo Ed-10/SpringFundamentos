@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--
+ Para poder traer nuestros estilos de frontend.html vamos a cargalos con la siguiente anotacion:
+    <head th:replace="layout/frontend :: head(~{::title}, ~{::links})">
+ Esto con el fin de poder cargar nuestros estilos
+ -->
+<head th:replace="layout/frontend :: head(~{::title}, ~{::link})">
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/fancybox/jquery.fancybox.css}">
+    <meta charset="UTF-8">
+    <title>Formularios</title>
+
+</head>
+<body>
+<div class="container">
+    <header th:replace="layout/frontend :: cabecera"></header>
+    <div th:replace="layout/frontend :: menu"></div>
+</div>
+<main class="container">
+    <h1>Productos</h1>
+    <div th:if="${mensaje!=null}" th:class="'alert alert-'+${clase}" th:text="${mensaje}"></div>
+    <p>
+        <a th:href="@{/jpa-repository/productos/add}" class="btn btn-success">Crear nuevo producto</a>
+    </p>
+    <nav th:insert="layout/paginacion :: paginacion"></nav>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Categoria</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Descripcion</th>
+            <th>Foto</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dato:${datos}">
+            <td th:text="${dato.id}"></td>
+            <!--<td th:text="${dato.categoriaId.nombre}"></td>-->
+            <th>
+                <a th:href="@{/jpa-repository/productos/categorias/}+${dato.categoriaId.id}" th:text="${dato.categoriaId.nombre}" th:title="${dato.categoriaId.nombre}"></a>
+            </th>
+            <td th:text="${dato.nombre}"></td>
+            <td th:text="'$'+${#numbers.formatDecimal(dato.precio,0,'POINT',0,'POINT')}"></td>
+            <td th:text="${dato.descripcion}"></td>
+            <!-- La foto la vamos a cargar de forma dinamica con nuestro apache habilitado-->
+            <td>
+                <a th:href="${url_images}+'productos/'+${dato.foto}" class="fancybox">
+                    <img th:src="${url_images}+'productos/'+${dato.foto}" width="100" height="100"/>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/jpa-repository/productos/editar/}+${dato.id}"><i class="fas fa-edit"></i></a>
+                <a th:href="@{/jpa-repository/productos/eliminar/}+${dato.id}"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Seccion para poder agregar paginacion -->
+
+</main>
+<br>
+<footer th:replace="layout/frontend :: footer"></footer>
+<!--En la parte de abajo estamos trayendo una estructura de codigo y de esta forma reciclamos componentes -->
+<div th:replace="layout/frontend :: scripts"></div>
+</body>
+</html></title>
+</head>
+<body>
+
+</body>
+</html>
