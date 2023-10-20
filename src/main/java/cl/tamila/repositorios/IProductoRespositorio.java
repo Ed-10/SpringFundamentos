@@ -10,4 +10,6 @@ public interface IProductoRespositorio extends JpaRepository<ProductosModel,Inte
     //Metodo para realizar consultas, en este caso de una categoria en especifico
     //A esto se le llama consulta de caracter compuesto
     List<ProductosModel> findAllBycategoriaId(CategoriaModel categoria);//Trallendo registros con nuestro filtro
+    //Este es un metodo que nos ayuda a filtrar las categorias
+    List<ProductosModel> findAllByCategoriaIdIn(List<CategoriaModel>categorias);
 }

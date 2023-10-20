@@ -38,10 +38,7 @@
         <tbody>
         <tr th:each="dato:${datos}">
             <td th:text="${dato.id}"></td>
-            <!--<td th:text="${dato.categoriaId.nombre}"></td>-->
-            <th>
-                <a th:href="@{/jpa-repository/productos/categorias/}+${dato.categoriaId.id}" th:text="${dato.categoriaId.nombre}" th:title="${dato.categoriaId.nombre}"></a>
-            </th>
+            <td th:text="${dato.categoriaId.nombre}"></td>
             <td th:text="${dato.nombre}"></td>
             <td th:text="'$'+${#numbers.formatDecimal(dato.precio,0,'POINT',0,'POINT')}"></td>
             <td th:text="${dato.descripcion}"></td>

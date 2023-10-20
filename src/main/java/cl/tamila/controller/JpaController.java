@@ -18,12 +18,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/jpa-repository")
-public class JpaController{
+public class JpaController
+{
     @Autowired
     private CategoriaService categoriaService; //Inyectando las categorias de la BD
     @Autowired
@@ -57,7 +60,8 @@ public class JpaController{
                                       RedirectAttributes flash,//Manejador de mensajes flash
                                       Model model){
         //Con esto, vamos a formatear el dato de algun error
-        if(result.hasErrors()){
+        if(result.hasErrors())
+        {
             Map<String, String> errores = new HashMap<>();
             result.getFieldErrors().forEach(err -> {
                 errores.put(err.getField(), "El campo ". concat(err.getField()).concat(" ").concat(err.getDefaultMessage()));
@@ -67,11 +71,15 @@ public class JpaController{
             return "jpa-repository/categorias_add";
         }
         String slug=Utilidades.getSlug(categoria.getNombre());//Pasamos nombre de la categoria para convertirlo a Slug
-        if (this.categoriaService.buscarPorSlug(slug)==false){
+
+        if (this.categoriaService.buscarPorSlug(slug)==false)
+        {
             flash.addFlashAttribute("clase", "danger");
             flash.addFlashAttribute("mensaje", "La categoria ya existe en la Base de datos");
             return "redirect:/jpa-repository/categorias/add";
-        }else{
+        }
+        else
+        {
             categoria.setSlug(slug);
             this.categoriaService.guardar(categoria);
             flash.addFlashAttribute("clase", "success");
@@ -95,7 +103,8 @@ public class JpaController{
                                          Model model)
     {
         //Con esto, vamos a formatear el dato de algun error
-        if(result.hasErrors()){
+        if(result.hasErrors())
+        {
             Map<String, String> errores = new HashMap<>();
             result.getFieldErrors().forEach(err -> {
                 errores.put(err.getField(), "El campo ". concat(err.getField()).concat(" ").concat(err.getDefaultMessage()));
@@ -112,13 +121,17 @@ public class JpaController{
         return "redirect:/jpa-repository/categorias/editar/"+id;
     }
     @GetMapping("/categorias/eliminar/{id}")
-    public String categorias_eliminar (@PathVariable("id") Integer id ,RedirectAttributes flash, Model model){
-        try {
+    public String categorias_eliminar (@PathVariable("id") Integer id ,RedirectAttributes flash, Model model)
+    {
+        try
+        {
             this.categoriaService.eliminar(id);
             flash.addFlashAttribute("clase", "success");
             flash.addFlashAttribute("mensaje", "Se elimino de forma exitosa");
             return "redirect:/jpa-repository/categorias";
-        }catch (Exception e){
+        }
+        catch (Exception e)
+        {
             flash.addFlashAttribute("clase", "danger");
             flash.addFlashAttribute("mensaje", "No es posible eliminar, intentelo mas tarde");
             return "redirect:/jpa-repository/categorias";
@@ -129,28 +142,43 @@ public class JpaController{
 
     //Seccion para poder listar y mostrar los productos
     @GetMapping("/productos")
-    public String productos(Model model){
+    public String productos(Model model)
+    {
         model.addAttribute("datos",this.productoService.listar());//Trayendo el listado de la BD
         return "jpa-repository/productos";
     }
     //Creando un filtro para poder traer PORDUCTOS a travez de la CATEGORIA:
     @GetMapping("/productos/categorias/{id}")
     public String productos_categorias(@PathVariable("id") Integer id,
-                                      Model model){
+                                      Model model)
+    {
         CategoriaModel categoria = this.categoriaService.buscarPorId(id);//Servicio implementado, class=CategoriaService
-        if (categoria==null){
+
+        if (categoria==null)
+        {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Pagina no encontrada");
         }
         model.addAttribute("datos",this.productoService.listar_por_categorias(categoria));//Trayendo el listado de la BD
         model.addAttribute("categoria",categoria);
         return "jpa-repository/productos_categorias";
     }
-    //Seccion para poder agregar nuevos productos  productos-wherein
+    //Seccion para poder agregar nuevos productos  PRODUCTOS-WHERIN
+    @GetMapping("/productos-wherein")
+    public String productos_wherein(Model model)
+    {
+        List<CategoriaModel> lista = new ArrayList<CategoriaModel>();
+        //lista.add(this.categoriaService.buscarPorId(14));
+        lista.add(this.categoriaService.buscarPorId(15));
+        model.addAttribute("datos",this.productoService.listar_wherein(lista));//Trayendo el listado de la BD
+        return "jpa-repository/productos-wherein";
+    }
     @GetMapping("/productos/add")
-    public String productos_add(Model model){
+    public String productos_add(Model model)
+    {
         ProductosModel productos=new ProductosModel();
         model.addAttribute("productos",productos);//Lo convertimos en un objeto
         model.addAttribute("listarCategorias",this.categoriaService.listar());//Vamos a traer las categorias y listarlas
+
         return "jpa-repository/productos_add";
     }
     @PostMapping("/productos/add")
@@ -158,11 +186,14 @@ public class JpaController{
                                       @RequestParam ("archivoImage") MultipartFile multiPart,
                                       BindingResult result,
                                       RedirectAttributes flash,//Manejador de mensajes flash
-                                      Model model){
+                                      Model model)
+    {
         //Con esto, vamos a formatear el dato de algun error
-        if(result.hasErrors()){
+        if(result.hasErrors())
+        {
             Map<String, String> errores = new HashMap<>();
-            result.getFieldErrors().forEach(err -> {
+            result.getFieldErrors().forEach(err ->
+            {
                 errores.put(err.getField(), "El campo ". concat(err.getField()).concat(" ").concat(err.getDefaultMessage()));
             });
             model.addAttribute("errores", errores);
@@ -174,14 +205,17 @@ public class JpaController{
             flash.addFlashAttribute("mensaje", "La imagen es obligatoria");
             return "redirect:/jpa-repository/productos/add";
         }
-        if (!multiPart.isEmpty()) {
+        if (!multiPart.isEmpty())
+        {
             String nombreImagen= Utilidades.guardarArchivo(multiPart,this.ruta_images+"ImagesSpring/");
-            if (nombreImagen == "no"){
+            if (nombreImagen == "no")
+            {
                 flash.addFlashAttribute("clase", "danger");
                 flash.addFlashAttribute("mensaje", "El formato del archivo no es valido");
                 return "redirect:/jpa-repository/productos/add";
             }
-            if (nombreImagen!=null){
+            if (nombreImagen!=null)
+            {
                 productos.setFoto(nombreImagen);
             }
         }
@@ -191,7 +225,7 @@ public class JpaController{
         flash.addFlashAttribute("mensaje", "Se creo el registro exitosamente");
 
         return "redirect:/jpa-repository/productos/add";
-        }
+    }
     //Seccion para poder EDITAR productos
     @GetMapping("/productos/editar/{id}")
     public String productos_editar(@PathVariable("id")Integer id, Model model){//Funcionalidad para traer datos de categoria deacuerdo a su ID
@@ -208,9 +242,11 @@ public class JpaController{
                                         @RequestParam ("archivoImage") MultipartFile multiPart,
                                         BindingResult result,
                                         RedirectAttributes flash,//Manejador de mensajes flash
-                                        Model model){
+                                        Model model)
+    {
         //Con esto, vamos a formatear el dato de algun error
-        if(result.hasErrors()){
+        if(result.hasErrors())
+        {
             Map<String, String> errores = new HashMap<>();
             result.getFieldErrors().forEach(err -> {
                 errores.put(err.getField(), "El campo ". concat(err.getField()).concat(" ").concat(err.getDefaultMessage()));
@@ -219,14 +255,17 @@ public class JpaController{
             model.addAttribute("productos", productos);
             return "jpa-repository/productos_add";
         }
-        if (!multiPart.isEmpty()) {
+        if (!multiPart.isEmpty())
+        {
             String nombreImagen= Utilidades.guardarArchivo(multiPart,this.ruta_images+"ImagesSpring/");
-            if (nombreImagen == "no"){
+            if (nombreImagen == "no")
+            {
                 flash.addFlashAttribute("clase", "danger");
                 flash.addFlashAttribute("mensaje", "El formato del archivo no es valido");
                 return "redirect:/jpa-repository/productos/editar/"+id;
             }
-            if (nombreImagen!=null){
+            if (nombreImagen!=null)
+            {
                 productos.setFoto(nombreImagen);
             }
         }
@@ -241,17 +280,18 @@ public class JpaController{
     //Seccion para poder ELIMINAR productos
     @GetMapping("/productos/eliminar/{id}")
     public String productos_eliminar(@PathVariable("id") Integer id,
-                                     RedirectAttributes flash
-                                     )
+                                     RedirectAttributes flash)
     {
         ProductosModel productos = this.productoService.buscarPorId(id);//Servicio implementado, class=ProductoService y traemos valor por ID
         File myObjet=new File(this.ruta_images+"ImagesSpring/"+productos.getFoto());
 
-        if (myObjet.delete()){
+        if (myObjet.delete())
+        {
             this.productoService.eliminar(id);
             flash.addFlashAttribute("clase", "success");
             flash.addFlashAttribute("mensaje", "Se elimino de forma correcta");
-        }else {
+        }else
+        {
             flash.addFlashAttribute("clase", "danger");
             flash.addFlashAttribute("mensaje", "Ocurrio un error, vuelva a intentarlo");
         }
@@ -260,7 +300,8 @@ public class JpaController{
 
     //Aqui pueden estar algunos modelos genericos que pueden reutilizarse en varias clases mas
     @ModelAttribute
-    public void setGenericos(Model model){
+    public void setGenericos(Model model)
+    {
         model.addAttribute("listarCategorias",this.categoriaService.listar());//Vamos a traer las categorias y listarlas
         model.addAttribute("url_images",this.url_images);
     }
