@@ -1,8 +1,10 @@
 package cl.tamila.controller;
 
 import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.HtmlConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,5 +50,10 @@ public class ReportesController {
 
         ConverterProperties converterProperties= new ConverterProperties();
         converterProperties.setBaseUri(this.ruta_pdf);
+
+        HtmlConverter.convertToPdf(html,target, converterProperties);
+
+        byte [] bytes=target.toByteArray();
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(bytes);
     }
 }

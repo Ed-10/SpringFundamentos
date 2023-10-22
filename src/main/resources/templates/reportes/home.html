@@ -8,7 +8,7 @@
 <head th:replace="layout/frontend :: head(~{::title}, ~{::link})">
     <link th:href="@{/css/estilos.css}" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Formularios</title>
+    <title>Reportes</title>
 
 </head>
 <body>
@@ -21,7 +21,7 @@
 
     <ul class="list-group">
         <li class="list-group-item list-group-item-action list-group-item-light" >
-            <a th:href="@{/reportes/pdf}">PDF</a>
+            <a th:href="@{/reportes/pdf}" target="_blank">PDF</a>
         </li>
         <li class="list-group-item list-group-item-action list-group-item-light">
             <a th:href="@{/reportes/ecxel}">Ecxel</a>

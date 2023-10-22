@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head th:replace="layout/frontend :: head(~{::title}, ~{::link})">
+    <link th:href="@{/css/estilos.css}" rel="stylesheet">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Reportes</title>
+
 </head>
 <body>
-
+    <div class="container">
+        <div class="card-header">
+            <h1 class="card-title" th:text="${titulo}"></h1>
+        </div>
+        <div class="card-body">
+            <img th:src="@{/images/logo.png}">
+        </div>
+        <div class="col-4 mx-auto text-center">
+            <a class="blog-header-logo text-dark">
+                <img th:src="@{/images/logo.png}">
+            </a>
+        </div>
+    </div>
 </body>
 </html>
