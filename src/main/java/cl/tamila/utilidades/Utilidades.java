@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -60,6 +61,12 @@ public class Utilidades {
         }
         return retorno;
 
+    }
+    //Metodo para poder formatear los precios
+    public static final String numberFormat(String value)
+    {
+        DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
+        return decimalFormat.format(value);
     }
     //Slug, Convertimos una cadena de texto en Slug
     private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
